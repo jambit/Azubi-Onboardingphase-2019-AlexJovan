@@ -4,6 +4,6 @@ chmod +x gradlew
 REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
 echo "pre-commit: About to create a new commit..."
 echo "pre-commit: JAVA FORMAT: "
-"${REPO_ROOT_DIR}/gradlew" goJF
+"${REPO_ROOT_DIR}/gradlew" goJF build
 
 git add .
