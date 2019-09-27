@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'com.github.sherter.google-java-format' version '0.8'
 	id 'application'
+    id 'com.github.sherter.google-java-format' version '0.8'
 }
 
 repositories {
@@ -13,11 +13,13 @@ sourceSets {
         java {
             srcDirs = ['src/']
         }
-		}
+    }
 }
+
 
 run{
     standardInput = System.in
 }
 
 mainClassName = 'com.jambit.Main'
+tasks.verifyGoogleJavaFormat.ignoreFailures = true
