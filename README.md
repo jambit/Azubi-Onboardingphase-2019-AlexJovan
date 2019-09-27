@@ -1,5 +1,5 @@
 # AlexJovanMassaker
-A small terminal based role play game(RPG) based on Jambit GMBH. Made by the new apprentices.
+A small terminal based role play game(RPG).
 [![Build Status](https://travis-ci.org/jambit/AlexJovanMassaker.svg?branch=develop)](https://travis-ci.org/jambit/AlexJovanMassaker)
 
 ## How to run the code ?
