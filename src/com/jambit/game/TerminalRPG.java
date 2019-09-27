@@ -5,7 +5,6 @@ import com.jambit.Game;
 import com.jambit.Level;
 import com.jambit.Terminal;
 import com.jambit.game.actors.BossAlma;
-import com.jambit.game.actors.ReceptionTA;
 import java.util.Scanner;
 
 /** Terminal RPG game */
@@ -32,11 +31,7 @@ public class TerminalRPG implements Game {
     BossAlma alma = new BossAlma();
     sumatra.addActor(alma);
 
-    ReceptionTA rTA = new ReceptionTA();
-    rTA.setName("LIZZI");
-    reception.addActor(rTA);
-
-    Terminal.println(
+    Terminal.writeMessage(
         "You wake up on the floor, everything is dark \n"
             + "Your back hurts, you feel very nausea's because you hadn't eaten in days.\n"
             + "You feel the dryed blood on your clothes sticking to your skin.\n"
@@ -49,7 +44,8 @@ public class TerminalRPG implements Game {
             + "You dont even want to start wondering about how the elevator couldn't move but you have electricity in the new room you are in\n"
             + "You are too occupied with the fact that you have lost your memory and that your head is bleeding very badly\n"
             + "But there is hope you think while you see a woman walking to something like a reception but you cant reach her because a glass door is seperating you both and you dont know how to open it\n"
-            + "Try to opening the door\n");
+            + "Try to opening the door\n",
+        20);
     tutorialMenu();
   }
 

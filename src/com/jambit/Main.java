@@ -6,8 +6,10 @@ public class Main {
 
   public static void main(String[] args) {
     Core core = new Core(new TerminalRPG());
-    if (args[0].equals("--debug")) {
-      core.DEBUG = true;
+    for (String arg : args) {
+      if (arg.equals("--debug")) {
+        core.DEBUG = true;
+      }
     }
     core.start();
   }
