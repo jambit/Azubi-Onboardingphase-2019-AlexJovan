@@ -112,6 +112,7 @@ public class Player extends Actor {
      */
     private Item inventoryMenu() {
         int i = 0;
+        Terminal.println("[0]Exit");
         for (Item item : inventory.getItemList()) {
             if (item.getDurability() > 0) {
                 Terminal.println("[" + (i++ + 1) + "]" + item.getName());
@@ -168,12 +169,15 @@ public class Player extends Actor {
      * check if quest has been completed
      */
     private void checkQuest() {
+    ArrayList<Quest> remove = new ArrayList<Quest>();
         for (Quest quest : questList) {
             if (quest.getComplete()) {
                 Terminal.coloredMessage("\nQUEST COMPLETE", Terminal.ANSI_GREEN);
                 Terminal.sleep(1000);
-                questList.remove(quest);
             }
+        }
+        for(Quest x : remove){
+            questList.remove(x);
         }
     }
 

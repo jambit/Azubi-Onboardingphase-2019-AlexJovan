@@ -16,18 +16,14 @@ public class TerminalRPG implements Game {
   Musik ms = new Musik();
   Level reception = new Level();
 
-  ReceptionTA rTA = new ReceptionTA();
-
   @Override
   public void beforeRun() {
-    rTA.setName("LIZZI");
     reception.setName("reception");
     Level sumatra = new Level();
     Level elevatorroom = new Level();
     elevatorroom.setName("elevatorroom");
     sumatra.setName("sumatra");
 
-    reception.addActor(rTA);
     sumatra.addConnectedLevel(reception);
     reception.addConnectedLevel(sumatra);
     elevatorroom.addConnectedLevel(reception);
@@ -35,6 +31,10 @@ public class TerminalRPG implements Game {
     elevatorroom.addActor(player);
     BossAlma alma = new BossAlma();
     sumatra.addActor(alma);
+
+    ReceptionTA rTA = new ReceptionTA();
+    rTA.setName("LIZZI");
+    reception.addActor(rTA);
 
     Terminal.println(
         "You wake up on the floor, everything is dark \n"
