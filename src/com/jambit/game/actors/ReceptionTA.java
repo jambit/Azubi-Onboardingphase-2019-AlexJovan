@@ -1,11 +1,18 @@
 package com.jambit.game.actors;
 
+import com.jambit.Level;
 import com.jambit.game.NPC;
 import com.jambit.game.Player;
+import com.jambit.game.Quest;
 
 public class ReceptionTA extends NPC {
+  Quest q = new Quest(Quest.questTypes.BossFight);
+
   @Override
-  protected void beginPlay() {}
+  protected void beginPlay() {
+    q.addObjective(new Quest.BossFight(Level.findActorInLevel("sumatra", "Alma [BOSS]")));
+    availableInteracts.add(interacts.Talk);
+  }
 
   @Override
   protected void onTick() {}
@@ -16,8 +23,10 @@ public class ReceptionTA extends NPC {
         "Elizabeth Maierbach: Hello"
             + getName()
             + "\n"
-            + "wait what happend to you?\n"
+            + "Wait what happend to you?\n"
             + "Why dont you heal yourself first before i explain your mission here");
+
+    player.addQuest(q);
 
     endInteract(player);
   }

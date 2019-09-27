@@ -5,20 +5,17 @@ import com.jambit.Core;
 import com.jambit.Terminal;
 import com.jambit.game.items.Item;
 import com.jambit.game.items.LargeHPPotion;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Player Class
- */
+/** Player Class */
 public class Player extends Actor {
-    private Scanner scanner = new Scanner(System.in);
+  private Scanner scanner = new Scanner(System.in);
 
-    private NPC inInteractObject = null;
+  private NPC inInteractObject = null;
 
-    private Inventory inventory = new Inventory();
-    private ArrayList<Quest> questList = new ArrayList<>();
+  private Inventory inventory = new Inventory();
+  private ArrayList<Quest> questList = new ArrayList<>();
 
     @Override
     public void beginPlay() {
