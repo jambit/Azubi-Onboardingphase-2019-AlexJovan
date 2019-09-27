@@ -8,7 +8,7 @@ public abstract class Item {
   private String name;
   private itemType currentItemType;
   protected int durability = 1;
-  protected int damage = 10;
+  protected int damage = 0;
 
   public enum itemType {
     hpPotion,

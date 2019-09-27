@@ -14,13 +14,18 @@ public abstract class Actor {
 
   private double dmgReduction = 1;
 
+  private boolean isInited = false;
+
   /** Empty Constructor */
   public Actor() {}
 
   /** What happens if object has been spawned [BASE] */
   public void init() {
-    deathEventHappened = false;
-    beginPlay();
+    if(!isInited) {
+      deathEventHappened = false;
+      beginPlay();
+      isInited = true;
+    }
   }
 
   /** What happens if object has been spawned [Forces you to have this method] */

@@ -10,6 +10,7 @@ public class BossAlma extends NPC {
     setName("Alma [BOSS]");
     availableInteracts.add(NPC.interacts.Talk);
     availableInteracts.add(NPC.interacts.Fight);
+    setHealthPoints(170);
   }
 
   @Override
