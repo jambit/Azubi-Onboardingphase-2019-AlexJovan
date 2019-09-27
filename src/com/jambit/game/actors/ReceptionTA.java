@@ -7,6 +7,7 @@ import com.jambit.game.Quest;
 
 public class ReceptionTA extends NPC {
   Quest q = new Quest(Quest.questTypes.BossFight);
+
   @Override
   protected void beginPlay() {
     q.addObjective(new Quest.BossFight(Level.findActorInLevel("sumatra", "Alma [BOSS]")));
