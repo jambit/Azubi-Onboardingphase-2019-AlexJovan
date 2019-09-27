@@ -21,7 +21,7 @@ public class Player extends Actor {
   public void beginPlay() {
     intractable = false;
     inventory.addItem(new LargeHPPotion());
-    setHealthPoints(5);
+    setHealthPoints(1000);
   }
 
   @Override

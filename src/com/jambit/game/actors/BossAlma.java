@@ -6,12 +6,6 @@ import com.jambit.game.Player;
 import java.util.Random;
 
 public class BossAlma extends NPC {
-  public BossAlma() {
-    setName("Alma [BOSS]");
-    availableInteracts.add(NPC.interacts.Talk);
-    availableInteracts.add(NPC.interacts.Fight);
-  }
-
   @Override
   protected void talkInteract(Player player) {
     super.talkInteract(player);
@@ -46,7 +40,11 @@ public class BossAlma extends NPC {
   }
 
   @Override
-  protected void beginPlay() {}
+  protected void beginPlay() {
+    setName("Alma [BOSS]");
+    availableInteracts.add(NPC.interacts.Talk);
+    availableInteracts.add(NPC.interacts.Fight);
+  }
 
   @Override
   protected void onTick() {}
