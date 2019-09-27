@@ -71,7 +71,7 @@ public class Terminal {
    * @param millisec how long to wait between characters
    */
   public static void writeMessage(String msg, int millisec) {
-    if(Core.DEBUG) millisec = 0;
+    if (Core.DEBUG) millisec = 0;
     for (int i = 0; i < msg.length(); i++) {
       System.out.print(msg.charAt(i));
       sleep(millisec);
@@ -85,7 +85,7 @@ public class Terminal {
    */
   public static void writeMessage(String msg) {
     int delay = 70;
-    if(Core.DEBUG) delay = 0;
+    if (Core.DEBUG) delay = 0;
     for (int i = 0; i < msg.length(); i++) {
       System.out.print(msg.charAt(i));
       sleep(0);

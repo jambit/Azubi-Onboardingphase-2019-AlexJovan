@@ -41,9 +41,9 @@ public class BossAlma extends NPC {
 
   @Override
   protected void beginPlay() {
-      setName("Alma [BOSS]");
-      availableInteracts.add(NPC.interacts.Talk);
-      availableInteracts.add(NPC.interacts.Fight);
+    setName("Alma [BOSS]");
+    availableInteracts.add(NPC.interacts.Talk);
+    availableInteracts.add(NPC.interacts.Fight);
   }
 
   @Override

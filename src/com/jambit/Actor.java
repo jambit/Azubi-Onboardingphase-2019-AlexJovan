@@ -21,7 +21,7 @@ public abstract class Actor {
 
   /** What happens if object has been spawned [BASE] */
   public void init() {
-    if(!isInited) {
+    if (!isInited) {
       deathEventHappened = false;
       beginPlay();
       isInited = true;
