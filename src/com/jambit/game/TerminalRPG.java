@@ -12,7 +12,7 @@ public class TerminalRPG implements Game {
 
   Player player = new Player();
   Scanner sc = new Scanner(System.in);
-  Musik ms = new Musik();
+  Music ms = new Music();
   Level reception = new Level();
 
   @Override
@@ -30,6 +30,12 @@ public class TerminalRPG implements Game {
     elevatorroom.addActor(player);
     BossAlma alma = new BossAlma();
     sumatra.addActor(alma);
+
+    Quest q = new Quest(Quest.questTypes.BossFight);
+    q.addObjective(new Quest.BossFight(alma));
+    q.setDescription("Quest Zero");
+    q.setDescription("Your first Quest");
+    player.addQuest(q);
 
     Terminal.writeMessage(
         "You wake up on the floor, everything is dark \n"
@@ -96,13 +102,13 @@ public class TerminalRPG implements Game {
         tutorialMenu();
         break;
       case "3":
-        Terminal.println("You have nothing in you Inventory");
+        Terminal.println("You have nothing in your Inventory");
         tutorialMenu();
-
+        break;
       case "4":
         Terminal.println("You see a key-card on the ground");
         miniMenu();
-
+        break;
       default:
         break;
     }

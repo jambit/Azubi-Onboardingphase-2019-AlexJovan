@@ -53,7 +53,7 @@ public class Level {
     if (!this.equals(level)) {
       connectedLevel.add(level);
     } else {
-      Terminal.errorMessage("You can't add the same LEVEL as connectedLEVEL {" + name + "]");
+      Terminal.debugMessage("You can't add the same LEVEL as connected LEVEL {" + name + "]");
     }
   }
 
@@ -123,12 +123,12 @@ public class Level {
   }
 
   /**
-   * sets Level Name
+   * sets Level Name and changes it to lower case
    *
    * @param name Level Name
    */
   public void setName(String name) {
-    this.name = name;
+    this.name = name.toLowerCase();
   }
 
   /** updates all objects in a Level */

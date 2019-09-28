@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public abstract class NPC extends Actor {
   protected interacts activeInteract = null;
   protected Player interactPlayer = null;
+  protected boolean defeated = false;
 
   protected ArrayList<interacts> availableInteracts = new ArrayList<interacts>();
 
@@ -27,7 +28,7 @@ public abstract class NPC extends Actor {
     activeInteract = availableInteracts.get(input - 1);
     player.setInInteractObject(this);
     if (activeInteract == interacts.Fight) {
-      Terminal.musik.runMusic("Music\\Battle_Long.wav");
+      Terminal.music.runMusic("Music\\Battle_Long.wav");
       Terminal.writeMessage("You Started a fight with " + getName() + "\n");
     }
   }
@@ -59,7 +60,7 @@ public abstract class NPC extends Actor {
   protected void endInteract(Player player) {
     player.setInInteractObject(null);
     activeInteract = null;
-    Terminal.musik.stopMusic();
+    Terminal.music.stopMusic();
   }
 
   @Override

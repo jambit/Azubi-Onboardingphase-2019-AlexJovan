@@ -9,6 +9,7 @@ public class LargeHPPotion extends Item {
   public LargeHPPotion() {
     setItemType(Item.itemType.hpPotion);
     setName("Large HP Potion");
+    setDescription("Heals you by 50 HP");
   }
 
   @Override

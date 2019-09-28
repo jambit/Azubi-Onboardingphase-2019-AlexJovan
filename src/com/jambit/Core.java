@@ -19,7 +19,7 @@ public class Core {
 
   /** Start Game */
   public void start() {
-    Terminal.musik.start();
+    Terminal.music.start();
     if (!(gameCount > 1)) {
       game.beforeRun();
       running = true;
@@ -34,12 +34,13 @@ public class Core {
     while (running) {
       Level.Tick();
     }
-    Terminal.musik.close();
+    Terminal.music.close();
   }
 
   /** Ends game main loop */
   public static void stopGame() {
     running = false;
+    Terminal.debugMessage("Stopping Game ....");
     System.exit(0);
   }
 }

@@ -8,7 +8,8 @@ import java.util.Random;
 public class BossAlma extends NPC {
   @Override
   protected void talkInteract(Player player) {
-    super.talkInteract(player);
+    availableInteracts.add(interacts.Fight);
+    endInteract(player);
   }
 
   @Override
@@ -43,7 +44,6 @@ public class BossAlma extends NPC {
   protected void beginPlay() {
     setName("Alma [BOSS]");
     availableInteracts.add(NPC.interacts.Talk);
-    availableInteracts.add(NPC.interacts.Fight);
   }
 
   @Override
@@ -52,6 +52,7 @@ public class BossAlma extends NPC {
   @Override
   protected void onDeath() {
     super.onDeath();
-    Terminal.coloredMessage(getName() + " has Died......", Terminal.ANSI_RED);
+    Terminal.coloredMessage(getName() + "has been defeated.....", Terminal.ANSI_RED);
+    availableInteracts = null;
   }
 }

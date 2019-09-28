@@ -4,7 +4,7 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 /** A Thread to start music */
-public class Musik extends Thread {
+public class Music extends Thread {
   private Clip clip;
 
   @Override
@@ -25,7 +25,7 @@ public class Musik extends Thread {
   public void stopMusic() {
     try {
       clip.stop();
-    } catch (Exception e) {
+    } catch (Exception ex) {
 
     }
   }

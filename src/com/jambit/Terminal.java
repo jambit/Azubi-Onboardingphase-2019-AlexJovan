@@ -1,6 +1,7 @@
 package com.jambit;
 
-import com.jambit.game.Musik;
+import com.jambit.game.Music;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,7 @@ public class Terminal {
 
   public static Scanner scanner = new Scanner(System.in);
 
-  public static Musik musik = new Musik();
+  public static Music music = new Music();
 
   /** Prevents object being created */
   private Terminal() {}
@@ -99,6 +100,7 @@ public class Terminal {
    */
   public static void errorMessage(String msg) {
     System.err.println(msg);
+    sleep(1500);
   }
 
   /**
@@ -118,5 +120,28 @@ public class Terminal {
    */
   public static void coloredMessage(String msg, String color) {
     System.out.println(color + msg + ANSI_RESET);
+  }
+
+  public static boolean testIfValidInput(ArrayList<Integer> validInputs, int input) {
+    for (int x : validInputs) {
+      if (validInputs.equals(input)) return true;
+    }
+    return false;
+  }
+
+  public static String bar(int x, int y) {
+    float z = (float) x / (float) y;
+    String bar = "";
+    int barSize = 10;
+    bar += "[";
+    for (int i = 0; i < barSize; i++) {
+      if (i < barSize * z) {
+        bar += "=";
+      } else {
+        bar += " ";
+      }
+    }
+    bar += "]";
+    return bar;
   }
 }

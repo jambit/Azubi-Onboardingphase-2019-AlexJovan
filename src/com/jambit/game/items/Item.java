@@ -6,6 +6,7 @@ import com.jambit.game.Player;
 public abstract class Item {
 
   private String name;
+  private String description = null;
   private itemType currentItemType;
   protected int durability = 1;
   protected int damage = 0;
@@ -14,6 +15,14 @@ public abstract class Item {
     hpPotion,
     shield,
     sword
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**

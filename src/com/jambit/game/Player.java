@@ -6,6 +6,7 @@ import com.jambit.Terminal;
 import com.jambit.game.items.Item;
 import com.jambit.game.items.LargeHPPotion;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /** Player Class */
@@ -21,8 +22,10 @@ public class Player extends Actor {
   public void beginPlay() {
     intractable = false;
     inventory.addItem(new LargeHPPotion());
+    setMaxHP(100);
     setHealthPoints(100);
     if (Core.DEBUG) {
+      setMaxHP(1000);
       setHealthPoints(1000);
     }
   }
@@ -49,19 +52,42 @@ public class Player extends Actor {
 
   /** player interact menu */
   private void playerInteractMenu() {
-    Terminal.println("[0] Exit");
-    for (int i = 0; i < getCurrentLevel().getActorArrayList().size(); i++) {
-      if (getCurrentLevel().getActorArrayList().get(i) instanceof NPC) {
-        Terminal.println(
-            "[" + (i + 1) + "] " + getCurrentLevel().getActorArrayList().get(i).getName());
+    boolean validInput = false;
+    do {
+      Terminal.println("----INTERACT LIST----");
+      Terminal.println("[0] Exit");
+      for (int i = 0; i < getCurrentLevel().getActorArrayList().size(); i++) {
+        try {
+          if (getCurrentLevel().getActorArrayList().get(i) instanceof NPC
+              && ((NPC) getCurrentLevel().getActorArrayList().get(i)).getAvailableInteracts().size()
+                  > 0) {
+            Terminal.println(
+                "[" + (i + 1) + "] " + getCurrentLevel().getActorArrayList().get(i).getName());
+          }
+        } catch (NullPointerException ex) {
+        }
       }
-    }
-    int input = Terminal.scanner.nextInt();
-    if (input == 0) {
-      return;
-    } else {
-      ((NPC) getCurrentLevel().getActorArrayList().get(input - 1)).interact(this);
-    }
+      int input;
+      Scanner scanner = new Scanner(System.in);
+      Terminal.coloredMessage("What do you want to interact with: ", Terminal.ANSI_GREEN);
+      try {
+        input = scanner.nextInt();
+      } catch (InputMismatchException ex) {
+        Terminal.errorMessage("Invalid Input");
+        continue;
+      }
+      if (input == 0) {
+        return;
+      } else {
+        try {
+          ((NPC) getCurrentLevel().getActorArrayList().get(input - 1)).interact(this);
+          validInput = true;
+        } catch (ClassCastException | IndexOutOfBoundsException | NullPointerException ex) {
+          Terminal.errorMessage("That interact object isn't available!!");
+          Terminal.clearScreen();
+        }
+      }
+    } while (!validInput);
   }
 
   /** Player main Menu */
@@ -69,14 +95,23 @@ public class Player extends Actor {
     Terminal.clearScreen();
     Terminal.coloredMessage("---MENU---", Terminal.ANSI_PURPLE);
     Terminal.coloredMessage("current room: " + getCurrentLevel().getName(), Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("HP: " + getHealthPoints(), Terminal.ANSI_PURPLE);
+    Terminal.coloredMessage(
+        "HP: "
+            + Terminal.bar(getHealthPoints(), getMaxHP())
+            + getHealthPoints()
+            + " / "
+            + getMaxHP(),
+        Terminal.ANSI_PURPLE);
     Terminal.coloredMessage("[1] Change Room", Terminal.ANSI_PURPLE);
     Terminal.coloredMessage("[2] Interact list", Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("[3] Inventory", Terminal.ANSI_PURPLE);
+    Terminal.coloredMessage("[3] Inventory \n\n [0] Quit Game", Terminal.ANSI_PURPLE);
 
     String input = scanner.next();
 
     switch (input) {
+      case "0":
+        Core.stopGame();
+        break;
       case "1":
         playerChangeRoomMenu();
         break;
@@ -93,38 +128,66 @@ public class Player extends Actor {
   /** change room menu */
   private void playerChangeRoomMenu() {
     Terminal.println("What Room do you want to Enter?");
+    Terminal.println("[0] Exit");
     for (int i = 0; i < getCurrentLevel().getConnectedLevel().size(); i++) {
       Terminal.println(
           "[" + (i + 1) + "] " + getCurrentLevel().getConnectedLevel().get(i).getName());
     }
     int input = scanner.nextInt();
-    changeLevel(getCurrentLevel().getConnectedLevel().get(input - 1));
+    if (input == 0) {
+      return;
+    }
+    try {
+      changeLevel(getCurrentLevel().getConnectedLevel().get(input - 1));
+    } catch (IndexOutOfBoundsException ex) {
+      Terminal.errorMessage("That LEVEL isn't available!!");
+    }
   }
 
   /** Opens inventory */
   private Item inventoryMenu() {
-    int i = 0;
-    Terminal.println("[0]Exit");
-    for (Item item : inventory.getItemList()) {
-      if (item.getDurability() > 0) {
-        Terminal.println("[" + (i++ + 1) + "]" + item.getName());
+    do {
+      Terminal.println("----INVENTORY----");
+      int i = 0;
+      Terminal.println("[0]Exit");
+      for (Item item : inventory.getItemList()) {
+        if (item.getDurability() > 0) {
+          Terminal.println("[" + (i++ + 1) + "]" + item.getName());
+          if (item.getDescription() != null) {
+            Terminal.coloredMessage("    (+ " + item.getDescription() + ")", Terminal.ANSI_YELLOW);
+          }
+        }
       }
-    }
-    int input = scanner.nextInt();
-    if (input == 0) {
-      return null;
-    } else {
-      Item item = inventory.getItemList().get(input - 1);
-      if (item.getItemType() == Item.itemType.sword && inInteractObject != null) {
-        Terminal.coloredMessage(
-            "You can't use a Item of type \"" + item.getItemType() + "\" out side of an interact",
-            Terminal.ANSI_RED);
-        Terminal.sleep(200);
+      int input;
+      Scanner scanner = new Scanner(System.in);
+      Terminal.coloredMessage("What item do you want to use: ", Terminal.ANSI_GREEN);
+      try {
+        input = scanner.nextInt();
+      } catch (InputMismatchException ex) {
+        Terminal.errorMessage("Invalid Input");
+        continue;
+      }
+      if (input == 0) {
+        return null;
       } else {
-        inventory.useItem(item, this);
+        Item item;
+        try {
+          item = inventory.getItemList().get(input - 1);
+        } catch (IndexOutOfBoundsException ex) {
+          Terminal.errorMessage("That Item is not available!");
+          return null;
+        }
+        if (item.getItemType() == Item.itemType.sword && inInteractObject != null) {
+          Terminal.coloredMessage(
+              "You can't use a Item of type \"" + item.getItemType() + "\" out side of an interact",
+              Terminal.ANSI_RED);
+          Terminal.sleep(200);
+        } else {
+          inventory.useItem(item, this);
+        }
+        return item;
       }
-      return item;
-    }
+    } while (true);
   }
 
   /**
@@ -134,17 +197,43 @@ public class Player extends Actor {
    */
   public void fightMenu(Actor actor) {
     Terminal.coloredMessage("---Chose your attack---", Terminal.ANSI_BLUE);
-    Terminal.coloredMessage(" Your HP: " + getHealthPoints(), Terminal.ANSI_CYAN);
     Terminal.coloredMessage(
-        inInteractObject.getName() + " HP: " + inInteractObject.getHealthPoints(),
+        "Your HP: "
+            + Terminal.bar(getHealthPoints(), getMaxHP())
+            + getHealthPoints()
+            + " / "
+            + getMaxHP(),
+        Terminal.ANSI_CYAN);
+    Terminal.coloredMessage(
+        inInteractObject.getName()
+            + " HP: "
+            + Terminal.bar(inInteractObject.getHealthPoints(), inInteractObject.getMaxHP())
+            + inInteractObject.getHealthPoints()
+            + " / "
+            + inInteractObject.getMaxHP(),
         Terminal.ANSI_CYAN);
     Terminal.coloredMessage("[1] HIT\n[2] Inventory", Terminal.ANSI_CYAN);
     int input = Terminal.scanner.nextInt();
+
     if (input == 1) {
+      Terminal.coloredMessage("You started an attack and did 20HP damage", Terminal.ANSI_YELLOW);
+      Terminal.sleep(1000);
       doDamage(20, inInteractObject);
     } else if (input == 2) {
+
       Item item = inventoryMenu();
+      if (item == null) {
+        fightMenu(actor);
+        return;
+      }
       if (item.getItemType() == Item.itemType.sword) {
+        Terminal.coloredMessage(
+            "You started an attack with \""
+                + item.getName()
+                + "\" and did "
+                + (20 + item.getDamage())
+                + "HP damage",
+            Terminal.ANSI_YELLOW);
         doDamage(20 + item.getDamage(), inInteractObject);
       }
     }

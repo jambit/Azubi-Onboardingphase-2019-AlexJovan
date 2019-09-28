@@ -16,6 +16,22 @@ public class Quest {
     Find;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   /**
    * Generate a Quest
    *
@@ -78,6 +94,12 @@ public class Quest {
 
     public BossFight(Actor actor) {
       boss = actor;
+      description =
+          "Defeat "
+              + actor.getName()
+              + " [Room: "
+              + actor.getCurrentLevel().getName().toUpperCase()
+              + "]";
     }
 
     /** check if the objective has been completed */
