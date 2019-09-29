@@ -239,9 +239,11 @@ public class Player extends Actor {
             + " / "
             + inInteractObject.getMaxHP(),
         Terminal.ANSI_CYAN);
-    Terminal.coloredMessage("[1] HIT\n[2] Inventory\n\n[0] FLEE", Terminal.ANSI_CYAN);
+    Terminal.coloredMessage(
+        "[1] HIT (DMG: " + baseDamage + ")\n[2] Open Inventory\n\n[0] FLEE", Terminal.ANSI_CYAN);
     int input = Terminal.scanner.nextInt();
 
+    // Checks Input
     if (input == 1) {
       Terminal.coloredMessage(
           "You started an attack and did " + baseDamage + "HP damage", Terminal.ANSI_YELLOW);
