@@ -32,6 +32,10 @@ public class Quest {
     this.description = description;
   }
 
+  public ArrayList<Objective> getObjectives() {
+    return objectives;
+  }
+
   /**
    * Generate a Quest
    *
@@ -69,7 +73,7 @@ public class Quest {
   }
 
   /** Base Class for all Objectives */
-  private abstract static class Objective {
+  public abstract static class Objective {
     protected boolean complete = false;
     protected String description;
 

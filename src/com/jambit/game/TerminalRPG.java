@@ -33,23 +33,23 @@ public class TerminalRPG implements Game {
 
     Quest q = new Quest(Quest.questTypes.BossFight);
     q.addObjective(new Quest.BossFight(alma));
-    q.setDescription("Quest Zero");
+    q.setName("Quest Zero");
     q.setDescription("Your first Quest");
     player.addQuest(q);
 
     Terminal.writeMessage(
         "You wake up on the floor, everything is dark \n"
             + "Your back hurts, you feel very nausea's because you hadn't eaten in days.\n"
-            + "You feel the dryed blood on your clothes sticking to your skin.\n"
+            + "You feel the dried blood on your clothes sticking to your skin.\n"
             + "You decide to stand up and check how bad your Injuries are.\n"
             + "In the moment you try to stand up you drop to the ground in an instant and you feel how the complete room you are in is moving up.\n"
             + "Two doors open in front of you letting Light comes through the little crack between them.\n"
             + "Your eyes close themselves very quickly and they feel like this is the first time Light touched them\n"
             + "While the Light is burning in your eyes you try to escape from the darkness you were in before\n"
             + "Now that you have left the dark room you can clearly see that you were trapped in an elevator without electricity\n"
-            + "You dont even want to start wondering about how the elevator couldn't move but you have electricity in the new room you are in\n"
+            + "You don't even want to start wondering about how the elevator couldn't move but you have electricity in the new room you are in\n"
             + "You are too occupied with the fact that you have lost your memory and that your head is bleeding very badly\n"
-            + "But there is hope you think while you see a woman walking to something like a reception but you cant reach her because a glass door is seperating you both and you dont know how to open it\n"
+            + "But there is hope you think while you see a woman walking to something like a reception but you cant reach her because a glass door is separating you both and you don't know how to open it\n"
             + "Try to opening the door\n",
         20);
     tutorialMenu();

@@ -102,9 +102,9 @@ public class Player extends Actor {
             + " / "
             + getMaxHP(),
         Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("[1] Change Room", Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("[2] Interact list", Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("[3] Inventory \n\n [0] Quit Game", Terminal.ANSI_PURPLE);
+    Terminal.coloredMessage(
+        "[1] Change Room\n[2] Interact list\n[3] Inventory\n[4] Active Quests \n\n[0] Quit Game",
+        Terminal.ANSI_PURPLE);
 
     String input = scanner.next();
 
@@ -120,8 +120,31 @@ public class Player extends Actor {
         break;
       case "3":
         inventoryMenu();
+        break;
+      case "4":
+        questMenu();
+        break;
       default:
         break;
+    }
+  }
+
+  private void questMenu() {
+    Terminal.println("---QUESTS---");
+    int i = 0;
+    for (Quest q : questList) {
+      String compete = "";
+      if (q.getComplete()) {
+        compete = " [COMPLETED]";
+      }
+      Terminal.println("[" + ++i + "]" + q.getName() + " - " + q.getDescription() + compete);
+      for (Quest.Objective o : q.getObjectives()) {
+        String color = Terminal.ANSI_YELLOW;
+        if (o.complete) {
+          color = Terminal.ANSI_GREEN;
+        }
+        Terminal.coloredMessage("    + " + o.description, color);
+      }
     }
   }
 
