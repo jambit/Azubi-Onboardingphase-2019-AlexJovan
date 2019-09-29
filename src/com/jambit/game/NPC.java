@@ -9,7 +9,23 @@ public abstract class NPC extends Actor {
   protected Player interactPlayer = null;
   protected boolean defeated = false;
 
-  protected ArrayList<interacts> availableInteracts = new ArrayList<interacts>();
+  private ArrayList<interacts> availableInteracts = new ArrayList<interacts>();
+
+  public void addInteract(interacts interact) {
+    boolean addInteract = true;
+    for (interacts i : availableInteracts) {
+      if (i.equals(interact)) {
+        addInteract = false;
+      }
+    }
+    if (addInteract) {
+      availableInteracts.add(interact);
+    }
+  }
+
+  public void setActiveInteract(ArrayList<interacts> x) {
+    availableInteracts = x;
+  }
 
   public enum interacts {
     Talk,
@@ -28,7 +44,6 @@ public abstract class NPC extends Actor {
     activeInteract = availableInteracts.get(input - 1);
     player.setInInteractObject(this);
     if (activeInteract == interacts.Fight) {
-      Terminal.music.runMusic("Music\\Battle_Long.wav");
       Terminal.writeMessage("You Started a fight with " + getName() + "\n");
     }
   }
@@ -57,10 +72,9 @@ public abstract class NPC extends Actor {
     player.fightMenu(this);
   }
 
-  protected void endInteract(Player player) {
+  public void endInteract(Player player) {
     player.setInInteractObject(null);
     activeInteract = null;
-    Terminal.music.stopMusic();
   }
 
   @Override

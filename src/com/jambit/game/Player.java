@@ -5,6 +5,7 @@ import com.jambit.Core;
 import com.jambit.Terminal;
 import com.jambit.game.items.Item;
 import com.jambit.game.items.LargeHPPotion;
+import com.jambit.game.items.PaperSword;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,10 +19,13 @@ public class Player extends Actor {
   private Inventory inventory = new Inventory();
   private ArrayList<Quest> questList = new ArrayList<>();
 
+  int baseDamage = 20;
+
   @Override
   public void beginPlay() {
     intractable = false;
     inventory.addItem(new LargeHPPotion());
+    inventory.addItem(new PaperSword());
     setMaxHP(100);
     setHealthPoints(100);
     if (Core.DEBUG) {
@@ -139,9 +143,9 @@ public class Player extends Actor {
       }
       Terminal.println("[" + ++i + "]" + q.getName() + " - " + q.getDescription() + compete);
       for (Quest.Objective o : q.getObjectives()) {
-        String color = Terminal.ANSI_YELLOW;
+        String color = "\u001B[91m";
         if (o.complete) {
-          color = Terminal.ANSI_GREEN;
+          color = "\u001B[32m";
         }
         Terminal.coloredMessage("    + " + o.description, color);
       }
@@ -200,15 +204,15 @@ public class Player extends Actor {
           Terminal.errorMessage("That Item is not available!");
           return null;
         }
-        if (item.getItemType() == Item.itemType.sword && inInteractObject != null) {
+        if (item.getItemType() == Item.itemType.sword && inInteractObject == null) {
           Terminal.coloredMessage(
-              "You can't use a Item of type \"" + item.getItemType() + "\" out side of an interact",
+              "You can't use a Item of type \"" + item.getItemType() + "\" outside of an interact",
               Terminal.ANSI_RED);
           Terminal.sleep(200);
         } else {
           inventory.useItem(item, this);
+          return item;
         }
-        return item;
       }
     } while (true);
   }
@@ -235,15 +239,15 @@ public class Player extends Actor {
             + " / "
             + inInteractObject.getMaxHP(),
         Terminal.ANSI_CYAN);
-    Terminal.coloredMessage("[1] HIT\n[2] Inventory", Terminal.ANSI_CYAN);
+    Terminal.coloredMessage("[1] HIT\n[2] Inventory\n\n[0] FLEE", Terminal.ANSI_CYAN);
     int input = Terminal.scanner.nextInt();
 
     if (input == 1) {
-      Terminal.coloredMessage("You started an attack and did 20HP damage", Terminal.ANSI_YELLOW);
+      Terminal.coloredMessage(
+          "You started an attack and did " + baseDamage + "HP damage", Terminal.ANSI_YELLOW);
       Terminal.sleep(1000);
-      doDamage(20, inInteractObject);
+      doDamage(baseDamage, inInteractObject);
     } else if (input == 2) {
-
       Item item = inventoryMenu();
       if (item == null) {
         fightMenu(actor);
@@ -257,8 +261,15 @@ public class Player extends Actor {
                 + (20 + item.getDamage())
                 + "HP damage",
             Terminal.ANSI_YELLOW);
-        doDamage(20 + item.getDamage(), inInteractObject);
+        doDamage(baseDamage + item.getDamage(), inInteractObject);
       }
+    } else if (input == 0) {
+      ((NPC) actor).endInteract(this);
+      actor.reset();
+    } else {
+      Terminal.errorMessage("Invalid Input");
+      fightMenu(actor);
+      return;
     }
   }
 
@@ -276,8 +287,8 @@ public class Player extends Actor {
     ArrayList<Quest> remove = new ArrayList<Quest>();
     for (Quest quest : questList) {
       if (quest.getComplete()) {
-        Terminal.coloredMessage("\nQUEST COMPLETE", Terminal.ANSI_GREEN);
-        Terminal.sleep(1000);
+        // Terminal.coloredMessage("\nQUEST COMPLETE", Terminal.ANSI_GREEN);
+        // Terminal.sleep(1000);
       }
     }
     for (Quest x : remove) {

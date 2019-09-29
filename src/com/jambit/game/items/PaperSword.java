@@ -9,6 +9,7 @@ public class PaperSword extends Item {
     setDamage(30);
     setItemType(Item.itemType.sword);
     setName("Paper-Sword");
+    setDescription("adds 30 damage to your base damage");
   }
 
   @Override

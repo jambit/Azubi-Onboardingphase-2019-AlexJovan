@@ -11,7 +11,7 @@ public class ReceptionTA extends NPC {
   @Override
   protected void beginPlay() {
     q.addObjective(new Quest.BossFight(Level.findActorInLevel("sumatra", "Alma [BOSS]")));
-    availableInteracts.add(interacts.Talk);
+    addInteract(interacts.Talk);
   }
 
   @Override

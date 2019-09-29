@@ -3,12 +3,14 @@ package com.jambit.game.actors;
 import com.jambit.Terminal;
 import com.jambit.game.NPC;
 import com.jambit.game.Player;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BossAlma extends NPC {
   @Override
   protected void talkInteract(Player player) {
-    availableInteracts.add(interacts.Fight);
+    addInteract(interacts.Fight);
+    Terminal.coloredMessage("Now you can Fight with " + getName(), Terminal.ANSI_YELLOW);
     endInteract(player);
   }
 
@@ -43,7 +45,8 @@ public class BossAlma extends NPC {
   @Override
   protected void beginPlay() {
     setName("Alma [BOSS]");
-    availableInteracts.add(NPC.interacts.Talk);
+    addInteract(interacts.Talk);
+    setHealthPoints(100);
   }
 
   @Override
@@ -53,6 +56,6 @@ public class BossAlma extends NPC {
   protected void onDeath() {
     super.onDeath();
     Terminal.coloredMessage(getName() + "has been defeated.....", Terminal.ANSI_RED);
-    availableInteracts = null;
+    setActiveInteract(new ArrayList<interacts>());
   }
 }

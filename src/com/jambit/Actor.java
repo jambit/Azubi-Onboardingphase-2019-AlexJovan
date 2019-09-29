@@ -28,6 +28,11 @@ public abstract class Actor {
     }
   }
 
+  public void reset() {
+    isInited = false;
+    init();
+  }
+
   /** What happens if object has been spawned [Forces you to have this method] */
   protected abstract void beginPlay();
 
