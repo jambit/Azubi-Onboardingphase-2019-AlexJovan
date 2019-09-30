@@ -89,7 +89,7 @@ public class Terminal {
     if (Core.DEBUG) delay = 0;
     for (int i = 0; i < msg.length(); i++) {
       System.out.print(msg.charAt(i));
-      sleep(0);
+      sleep(delay);
     }
   }
 
