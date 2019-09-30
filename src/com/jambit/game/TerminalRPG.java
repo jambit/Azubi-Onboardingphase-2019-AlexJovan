@@ -5,6 +5,7 @@ import com.jambit.Game;
 import com.jambit.Level;
 import com.jambit.Terminal;
 import com.jambit.game.actors.BossAlma;
+import com.jambit.game.actors.Liz;
 import java.util.Scanner;
 
 /** Terminal RPG game */
@@ -23,6 +24,8 @@ public class TerminalRPG implements Game {
     elevatorroom.setName("elevatorroom");
     sumatra.setName("sumatra");
 
+    Liz liz = new Liz();
+
     sumatra.addConnectedLevel(reception);
     reception.addConnectedLevel(sumatra);
     elevatorroom.addConnectedLevel(reception);
@@ -31,8 +34,11 @@ public class TerminalRPG implements Game {
     BossAlma alma = new BossAlma();
     sumatra.addActor(alma);
 
+    reception.addActor(liz);
+
     Quest q = new Quest(Quest.questTypes.BossFight);
     q.addObjective(new Quest.BossFight(alma));
+
     q.setName("Quest Zero");
     q.setDescription("Your first Quest");
     player.addQuest(q);

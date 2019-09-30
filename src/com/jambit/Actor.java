@@ -8,8 +8,8 @@ public abstract class Actor {
   private int actorXP = 0;
   private int healthPoints = 1;
   private int maxHP = 100;
-  protected boolean isDead = false;
-  protected boolean deathEventHappened = false;
+  private boolean isDead = false;
+  private boolean deathEventHappened = false;
   protected boolean intractable = false;
 
   private double dmgReduction = 1;
@@ -20,7 +20,7 @@ public abstract class Actor {
   public Actor() {}
 
   /** What happens if object has been spawned [BASE] */
-  public void init() {
+  void init() {
     if (!isInited) {
       deathEventHappened = false;
       beginPlay();
@@ -95,7 +95,7 @@ public abstract class Actor {
    *
    * @param healthPoints Set HP to this number
    */
-  public void setHealthPoints(int healthPoints) {
+  protected void setHealthPoints(int healthPoints) {
     this.healthPoints = healthPoints;
   }
 
@@ -131,7 +131,7 @@ public abstract class Actor {
    *
    * @param level Level class
    */
-  public void setCurrentLevel(Level level) {
+  void setCurrentLevel(Level level) {
     currentLevel = level;
   }
 

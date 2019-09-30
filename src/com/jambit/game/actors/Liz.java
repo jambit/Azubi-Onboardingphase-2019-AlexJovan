@@ -1,3 +1,15 @@
 package com.jambit.game.actors;
 
-public class Liz {}
+import com.jambit.game.NPC;
+
+public class Liz extends NPC {
+  @Override
+  protected void beginPlay() {
+    setHealthPoints(100);
+    setName("LIZ");
+    addInteract(interacts.Talk);
+  }
+
+  @Override
+  protected void onTick() {}
+}

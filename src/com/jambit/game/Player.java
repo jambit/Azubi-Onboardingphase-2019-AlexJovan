@@ -97,18 +97,18 @@ public class Player extends Actor {
   /** Player main Menu */
   private void playerMenu() {
     Terminal.clearScreen();
-    Terminal.coloredMessage("---MENU---", Terminal.ANSI_PURPLE);
-    Terminal.coloredMessage("current room: " + getCurrentLevel().getName(), Terminal.ANSI_PURPLE);
+    Terminal.coloredMessage("---MENU---", Terminal.ANSI_CYAN);
+    Terminal.coloredMessage("current room: " + getCurrentLevel().getName(), Terminal.ANSI_CYAN);
     Terminal.coloredMessage(
         "HP: "
             + Terminal.bar(getHealthPoints(), getMaxHP())
             + getHealthPoints()
             + " / "
             + getMaxHP(),
-        Terminal.ANSI_PURPLE);
+        Terminal.ANSI_CYAN);
     Terminal.coloredMessage(
         "[1] Change Room\n[2] Interact list\n[3] Inventory\n[4] Active Quests \n\n[0] Quit Game",
-        Terminal.ANSI_PURPLE);
+        Terminal.ANSI_CYAN);
 
     String input = scanner.next();
 
