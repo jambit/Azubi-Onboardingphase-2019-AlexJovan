@@ -27,10 +27,10 @@ public class Level {
   }
 
   /** Update all Levels Actors that are in an active Level */
-  public static void Tick() {
-    for (int i = 0; i < levelArrayList.size(); i++) {
-      if (levelArrayList.get(i).getIsActive()) {
-        levelArrayList.get(i).objectTick();
+  static void Tick() {
+    for (Level level : levelArrayList) {
+      if (level.getIsActive()) {
+        level.objectTick();
       }
     }
   }
@@ -40,7 +40,7 @@ public class Level {
    *
    * @return returns boolean
    */
-  public boolean getIsActive() {
+  private boolean getIsActive() {
     return isActive;
   }
 
@@ -91,7 +91,7 @@ public class Level {
    *
    * @param actor actor object
    */
-  public void removeActor(Actor actor) {
+  void removeActor(Actor actor) {
     for (int i = 0; i < actorArrayList.size(); i++) {
       if (actorArrayList.get(i).equals(actor)) {
         actorArrayList.remove(i);
@@ -105,7 +105,7 @@ public class Level {
    * @param actor actor object
    * @param level level object
    */
-  public static void removeActor(Actor actor, Level level) {
+  private static void removeActor(Actor actor, Level level) {
     for (int i = 0; i < level.getActorArrayList().size(); i++) {
       if (level.getActorArrayList().get(i).equals(actor)) {
         level.removeActor(actor);
@@ -132,9 +132,9 @@ public class Level {
   }
 
   /** updates all objects in a Level */
-  public void objectTick() {
-    for (int i = 0; i < actorArrayList.size(); i++) {
-      actorArrayList.get(i).tick();
+  private void objectTick() {
+    for (Actor actor : actorArrayList) {
+      actor.tick();
     }
   }
 
@@ -143,13 +143,13 @@ public class Level {
    *
    * @param actor gets Actor object to check
    */
-  public static void testIfDuplicate(Actor actor) {
-    for (int i = 0; i < levelArrayList.size(); i++) {
-      for (int j = 0; j < levelArrayList.get(i).getActorArrayList().size(); j++) {
-        if (levelArrayList.get(i).getActorArrayList().get(j).equals(actor)
-            && !(actor.getCurrentLevel().equals(levelArrayList.get(i)))) {
+  static void testIfDuplicate(Actor actor) {
+    for (Level level : levelArrayList) {
+      for (int j = 0; j < level.getActorArrayList().size(); j++) {
+        if (level.getActorArrayList().get(j).equals(actor)
+            && !(actor.getCurrentLevel().equals(level))) {
           Terminal.errorMessage("Actor: " + actor.getName() + " [DUPLICATE]");
-          removeActor(actor, levelArrayList.get(i));
+          removeActor(actor, level);
         }
       }
     }

@@ -18,7 +18,6 @@ public class Music extends Thread {
       clip.open(audioInputStream);
       clip.start();
     } catch (Exception ex) {
-      // System.out.println("Error with playing sound.");
     }
   }
 
@@ -26,7 +25,6 @@ public class Music extends Thread {
     try {
       clip.stop();
     } catch (Exception ex) {
-
     }
   }
 

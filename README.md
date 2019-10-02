@@ -17,3 +17,10 @@ foo@bar:~$ ./gradlew run --console=plain --args="--debug"
 ```console
 foo@bar:~$ ./gradlew build
 ```
+
+##You have ideas that we should add to the game ?
+Our team is open for ideas!! If you have any kind of feature or story you want us to add to the game follow these steps:
+1. go into the issues tab (https://github.com/jambit/AlexJovanMassaker/issues)
+2. create a new issue (or like a existing one)
+3. describe your idea
+4. submit your "issue" and wait... :)
